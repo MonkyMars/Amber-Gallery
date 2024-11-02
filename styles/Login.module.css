@@ -1,0 +1,156 @@
+.container {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  color: #2d3436;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d3436;
+}
+
+.navLinks {
+  display: flex;
+  gap: 2rem;
+}
+
+.navLinks a {
+  color: #2d3436;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.navLinks a:hover {
+  color: #6c5ce7;
+}
+
+/* Main Content */
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  padding: 2rem;
+}
+
+.loginCard {
+  background-color: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 2rem;
+  color: #2d3436;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.subtitle {
+  color: #636e72;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-weight: 500;
+  color: #2d3436;
+}
+
+.formGroup input {
+  padding: 0.8rem;
+  border: 1px solid #dfe6e9;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #6c5ce7;
+}
+
+.forgotPassword {
+  text-align: right;
+}
+
+.forgotPassword a {
+  color: #6c5ce7;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.forgotPassword a:hover {
+  text-decoration: underline;
+}
+
+.loginButton {
+  padding: 1rem;
+  background-color: #6c5ce7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+}
+
+.loginButton:hover {
+  background-color: #5f4dd0;
+}
+
+.registerPrompt {
+  margin-top: 2rem;
+  text-align: center;
+  color: #636e72;
+}
+
+.registerPrompt a {
+  color: #6c5ce7;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.registerPrompt a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .loginCard {
+    padding: 2rem;
+  }
+} 
