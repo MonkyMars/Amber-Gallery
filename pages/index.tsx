@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { useState } from "react";
+import Link from 'next/link';
 
 const Home: NextPage = () => {
   const [artworks, setArtworks] = useState([
@@ -28,9 +29,9 @@ const Home: NextPage = () => {
       <nav className={styles.nav}>
         <div className={styles.logo}>Amber Gallery</div>
         <div className={styles.navLinks}>
-          <a href="/gallery">Gallery</a>
+          <Link href="/gallery">Gallery</Link>
           <a href="#about">About</a>
-          <a href="/user/login">Login</a>
+          <Link href="/user/login">Login</Link>
         </div>
       </nav>
 
