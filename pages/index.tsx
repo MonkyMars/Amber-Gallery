@@ -34,7 +34,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Amber Gallery</title>
         <meta name="description" content="A gallery of beautiful artworks" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/art-studies.png" />
       </Head>
 
       <nav className={styles.nav}>

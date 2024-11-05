@@ -38,7 +38,7 @@ const AnalyticsArtworks: NextPage = () => {
       <Head>
         <title>Dashboard - Amber Gallery</title>
         <meta name="description" content="Amber Gallery Dashboard" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/art-studies.png" />
       </Head>
 
       <nav className={styles.nav}>

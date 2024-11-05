@@ -41,7 +41,7 @@ const Login: NextPage = () => {
       <Head>
         <title>Login - Amber Gallery</title>
         <meta name="description" content="Login to Amber Gallery" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/art-studies.png" />
       </Head>
 
       <nav className={styles.nav}>
@@ -84,21 +84,21 @@ const Login: NextPage = () => {
               />
             </div>
 
-            <div className={styles.forgotPassword}>
+            {/* <div className={styles.forgotPassword}>
               <Link href="/forgot-password">Forgot password?</Link>
-            </div>
+            </div> */}
 
             <button type="submit" className={styles.loginButton}>
               Sign In
             </button>
           </form>
 
-          <div className={styles.registerPrompt}>
+          {/* <div className={styles.registerPrompt}>
             <p>
               Don&apos;t have an account?{" "}
               <Link href="/register">Create an account</Link>
             </p>
-          </div>
+          </div> */}
         </div>
       </main>
     </div>
