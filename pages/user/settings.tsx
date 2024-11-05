@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { getUser, IsLoggedIn, Logout, User } from "../../utils/user-service";
-import { NextPage } from "next";
 import { useRouter } from "next/router";
+import React from 'react';
 
-const Settings: NextPage = () => {
+const Settings: React.FC = () => {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
