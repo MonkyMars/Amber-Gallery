@@ -6,8 +6,10 @@ import { useState, useMemo, useEffect } from "react";
 import styles from "../styles/Gallery.module.css";
 import { getArtworks, searchArtworks, type Artwork, incrementArtworkViews } from '../utils/artwork-service';
 import { getUser, IsLoggedIn, type User } from "../utils/user-service";
+import { useRouter } from "next/router";
 
 const Gallery: NextPage = () => {
+  const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'title'>('newest');
@@ -97,7 +99,7 @@ const Gallery: NextPage = () => {
       </Head>
 
       <nav className={styles.nav}>
-        <div className={styles.logo}>Amber Gallery</div>
+        <div className={styles.logo} onClick={() => router.push('/')}>Amber Gallery</div>
         <div className={styles.navLinks}>
           <Link href="/">Home</Link>
           {user && user.email === 'ambergijselhart@gmail.com' && user.id === 1 && <Link href="/user/dashboard">Dashboard</Link>}
