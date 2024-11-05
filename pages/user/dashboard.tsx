@@ -7,12 +7,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { getUser, Logout, type User, IsLoggedIn } from "../../utils/user-service";
 import { useTheme } from "../../utils/ThemeContext";
-
-interface Analytics {
-  count: number;
-  views: number;
-}
-
+import { type Analytics } from "../../utils/artwork-service";
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);

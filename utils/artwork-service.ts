@@ -19,6 +19,12 @@ export interface ManagedArtwork extends Artwork {
   created_at: string;
   updated_at: string;
 }
+
+export type Analytics = {
+  count: number;
+  views: number;
+}
+
 export async function getArtworks(): Promise<Artwork[]> {
   try {
     const { rows } = await sql`
