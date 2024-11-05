@@ -19,15 +19,49 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
 
     case 'POST':
       try {
-        const { title, date, place, description, imageUrl } = req.body;
+        const { title, date, place, description, image } = req.body;
+        
+        console.log(req.body);
+        if (!title || !date || !place || !description || !image) {
+          return res.status(400).json({ 
+            error: 'Missing required fields',
+            message: 'All fields (title, date, place, description, image) are required',
+            body: req.body
+          });
+        }
+
         const result = await sql`
-          INSERT INTO artworks (title, date, place, description, image_url, user_id)
-          VALUES (${title}, ${date}, ${place}, ${description}, ${imageUrl}, ${req.user!.userId})
+          INSERT INTO artworks (
+            title, 
+            date, 
+            place, 
+            description, 
+            image_url, 
+            user_id,
+            created_at,
+            updated_at,
+            views
+          )
+          VALUES (
+            ${title}, 
+            ${date}, 
+            ${place}, 
+            ${description}, 
+            ${image}, 
+            ${req.user!.userId},
+            NOW(),
+            NOW(),
+            0
+          )
           RETURNING *
         `;
         return res.status(201).json(result.rows[0]);
       } catch (error) {
-        return res.status(500).json({ error: 'Failed to create artwork' });
+        console.error('Error creating artwork:', error);
+        return res.status(500).json({ 
+          message: 'Failed to create artwork', 
+          error: error instanceof Error ? error.message : String(error)
+        });
       }
 
     default:
@@ -36,4 +70,4 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
   }
 }
 
-export default withAuth(handler); 
+export default withAuth(handler);
