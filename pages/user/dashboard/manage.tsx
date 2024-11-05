@@ -179,7 +179,7 @@ const ManageArtworks: NextPage = () => {
                         priority={true}
                       />
                       <span className={styles.viewsCounter}>
-                        <span>{artwork.views}</span> views
+                        <span>{artwork.views === 1 ? "1 view" : `${artwork.views} views`}</span>
                       </span>
                     </>
                   )}
