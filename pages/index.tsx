@@ -2,17 +2,11 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { getArtworks, type Artwork } from "../utils/artwork-service";
+import { useState } from "react";
 import { useRouter } from "next/router";
-import { getUser, IsLoggedIn } from "../utils/user-service";
-interface User {
-  id: number;
-  email: string;
-  name: string;
-}
-
+import { getArtworks, type Artwork } from "../utils/artwork-service";
+import { getUser, IsLoggedIn, type User } from "../utils/user-service";
+import { useEffect } from "react";
 const Home: NextPage = () => {
   const router = useRouter();
   const [artworks, setArtworks] = useState<Artwork[]>([]);
@@ -45,9 +39,9 @@ const Home: NextPage = () => {
       <nav className={styles.nav}>
         <div className={styles.logo}>Amber Gallery</div>
         <div className={styles.navLinks}>
-          <Link href="/gallery">Gallery</Link>
-          {user && user.email === 'ambergijselhart@gmail.com' && user.id === 1 && <Link href="/user/dashboard">Dashboard</Link>}
-          {!user && <Link href="/user/login">Login</Link>}
+          <a href="/gallery">Gallery</a>
+          <a href="#about">About</a>
+          <a href="/user/login">Login</a>
         </div>
       </nav>
 
