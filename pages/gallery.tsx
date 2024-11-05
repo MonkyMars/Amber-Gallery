@@ -3,11 +3,11 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useMemo, useEffect } from "react";
-import styles from "../styles/Gallery.module.css";
+import styles from "../styles/Gallery.module.scss";
 import { getArtworks, searchArtworks, type Artwork, incrementArtworkViews } from '../utils/artwork-service';
 import { getUser, IsLoggedIn, type User } from "../utils/user-service";
 import { useRouter } from "next/router";
-
+import { useTheme } from '../utils/ThemeContext';
 const Gallery: NextPage = () => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,6 +17,7 @@ const Gallery: NextPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const loadArtworks = async () => {
@@ -221,6 +222,22 @@ const Gallery: NextPage = () => {
           </div>
         </div>
       )}
+
+      {/* <footer className={styles.footer}>
+        <div className={styles.themeToggle}>
+          <label className={styles.switch}>
+            <input
+              type="checkbox"
+              checked={theme === 'dark'}
+              onChange={toggleTheme}
+            />
+            <span className={styles.slider}></span>
+          </label>
+          <span className={styles.themeLabel}>
+            {theme === 'dark' ? 'Dark' : 'Light'} Mode
+          </span>
+        </div>
+      </footer> */}
     </div>
   );
 };

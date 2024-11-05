@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { getUser, Logout, type User, IsLoggedIn } from "../../utils/user-service";
+import { useTheme } from "../../utils/ThemeContext";
 
 interface Analytics {
   count: number;
@@ -119,6 +120,8 @@ const Dashboard: NextPage = () => {
       .then(data => setAnalytics(data))
       .catch(error => console.error('Error fetching analytics:', error));
   }, []);
+
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <div className={styles.container}>
@@ -244,6 +247,20 @@ const Dashboard: NextPage = () => {
           </form>
         </main>
       </div>
+
+      {/* <footer className={styles.footer}>
+        <div className={styles.themeToggle}>
+          <label className={styles.switch}>
+            <input
+              type="checkbox"
+              checked={theme === 'dark'}
+              onChange={toggleTheme}
+            />
+            <span className={styles.slider}></span>
+          </label>
+          <span>{theme === 'dark' ? 'Dark' : 'Light'} Mode</span>
+        </div>
+      </footer> */}
     </div>
   );
 };
