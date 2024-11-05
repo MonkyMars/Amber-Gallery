@@ -195,4 +195,78 @@
 .filterSelect:focus {
   outline: none;
   border-color: #6c5ce7;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  width: 900px;
+}
+
+.closeButton {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.modalContent {
+  display: flex;
+  gap: 20px;
+}
+
+.modalImageWrapper {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  flex-shrink: 0;
+}
+
+.modalInfo {
+  flex: 1;
+}
+
+.modalDetails {
+  margin: 20px 0;
+}
+
+.modalDetails p {
+  margin: 8px 0;
+}
+
+.modalDescription {
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    flex-direction: column;
+  }
+  
+  .modalImageWrapper {
+    width: 100%;
+    height: 300px;
+  }
 } 

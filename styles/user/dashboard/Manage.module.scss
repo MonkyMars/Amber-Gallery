@@ -1,0 +1,318 @@
+.container {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  color: #2d3436;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d3436;
+}
+
+.navLinks {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.navLinks a {
+  color: #2d3436;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.navLinks a:hover {
+  color: #6c5ce7;
+}
+
+.logoutButton {
+  padding: 0.5rem 1rem;
+  background-color: #ff7675;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.logoutButton:hover {
+  background-color: #e66767;
+}
+
+/* Layout */
+.contentWrapper {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menuItem {
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.menuItem:hover {
+  background-color: #f1f2f6;
+}
+
+.menuItem .active {
+  color: #6c5ce7;
+  font-weight: 600;
+}
+
+/* Main Content */
+.main {
+  flex: 1;
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #2d3436;
+}
+
+.submitButton:hover {
+  background-color: #5f4dd0;
+}
+
+
+.artworksGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.artworkCard {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.artworkCard:hover {
+  transform: translateY(-4px);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 250px;
+
+  .viewsCounter {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    z-index: 1;
+  }
+}
+
+.artworkImage {
+  transition: transform 0.3s;
+}
+
+.artworkCard:hover .artworkImage {
+  transform: scale(1.05);
+}
+
+.artworkInfo {
+  padding: 1.5rem;
+}
+
+.artworkInfo h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #2d3436;
+}
+
+.artworkDetails {
+  display: flex;
+  gap: 0.5rem;
+  color: #636e72;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.artworkDescription {
+  color: #636e72;
+  margin: 0.5rem 0;
+  line-height: 1.5;
+}
+
+.artworkMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  position: relative;
+}
+
+.location {
+  color: #6c5ce7;
+  font-size: 0.9rem;
+}
+
+.viewButton {
+  padding: 0.5rem 1rem;
+  background-color: #6c5ce7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.viewButton:hover {
+  background-color: #5f4dd0;
+}
+
+.actionMenu {
+  position: absolute;
+  bottom: 120%;
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
+  min-width: 120px;
+  z-index: 10;
+
+  button {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    text-align: left;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .contentWrapper {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  
+  input, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  textarea {
+    min-height: 100px;
+  }
+}
+
+.modalActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  
+  button {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.saveButton {
+  background: #6c5ce7;
+  color: white;
+  
+  &:hover {
+    background: #5f4dd0;
+  }
+}
+
+.cancelButton {
+  background: #ff7675;
+  color: white;
+  
+  &:hover {
+    background: #e66767;
+  }
+} 

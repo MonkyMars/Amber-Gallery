@@ -143,12 +143,89 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  .imageInput {
+    width: calc(100% - 1.6rem);
+    padding: 0.8rem;
+    border: 2px dashed #e0e0e0;
+    border-radius: 8px;
+    background: #f8f8f8;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+
+    &:hover {
+      border-color: #666;
+      background: #f0f0f0;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #333;
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .imageInput::-webkit-file-upload-button {
+    visibility: hidden;
+    display: none;
+  }
+  .imageInput::-moz-file-upload-button {
+    visibility: hidden;
+    display: none;
+  }
+  .imageInput::file-selector-button {
+    visibility: hidden;
+    display: none;
+  }
+
+  .imageInput::before {
+    content: 'Choose Image';
+    display: inline-block;
+    background: #333;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin-right: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .imageInput:hover::before {
+    background: #444;
+  }
+
+  /* Browse button */
+  .imageInput::after {
+    content: 'Browse';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #6c5ce7;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .imageInput:hover::after {
+    background: #5f4dd0;
+  }
 }
 
-.formRow {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+.imagePreview {
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+  }
 }
 
 .formGroup label {
