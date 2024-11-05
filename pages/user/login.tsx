@@ -1,12 +1,14 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../../styles/Login.module.css";
 import { useRouter } from "next/router";
+import { SetUser, type Credentials } from "../../utils/user-service";
+
 const Login: NextPage = () => {
   const router = useRouter();
-  const [credentials, setCredentials] = useState({
+  const [credentials, setCredentials] = useState<Credentials>({
     email: "",
     password: "",
   });
@@ -24,8 +26,7 @@ const Login: NextPage = () => {
       
       const data = await response.json();
       if(response.ok) {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
+        SetUser(data.user, data.token);
         router.push('/user/dashboard');
       } else {
         alert(data.error || 'Invalid credentials');

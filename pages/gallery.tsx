@@ -4,19 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useMemo, useEffect } from "react";
 import styles from "../styles/Gallery.module.css";
-import { getArtworks, searchArtworks, type Artwork } from '../utils/artwork-service';
-
-interface ArtworkProps {
-  id: number;
-  title: string;
-  date: string;
-  place: string;
-  description: string;
-  image_url: string;
-  medium?: string;
-  category?: string;
-}
-
+import { getArtworks, searchArtworks, type Artwork, incrementArtworkViews } from '../utils/artwork-service';
+import { getUser, IsLoggedIn, type User } from "../utils/user-service";
 
 const Gallery: NextPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,8 +13,9 @@ const Gallery: NextPage = () => {
   const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'title'>('newest');
   const [artworks, setArtworks] = useState<Artwork[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
+  const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
 
-  // Replace the static artworks array with useEffect to fetch data
   useEffect(() => {
     const loadArtworks = async () => {
       setIsLoading(true);
@@ -37,7 +27,6 @@ const Gallery: NextPage = () => {
     loadArtworks();
   }, []);
 
-  // Modify the search/filter logic to use the API
   useEffect(() => {
     const fetchFilteredArtworks = async () => {
       setIsLoading(true);
@@ -81,10 +70,28 @@ const Gallery: NextPage = () => {
     []
   );
 
+
+  useEffect(() => {
+    if (IsLoggedIn()) {
+      setUser(getUser());
+    } else {
+      setUser(null);
+    } 
+  }, [])
+
+  const handleViewDetails = async (artwork: Artwork) => {
+    try {
+      await incrementArtworkViews(artwork.id);
+      setSelectedArtwork(artwork);
+    } catch (error) {
+      console.error('Error tracking view:', error);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Head>
-        <title>Gallery - Amber Gallery</title>
+        <title>Amber Gallery</title>
         <meta name="description" content="Browse Amber's artwork collection" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -93,8 +100,8 @@ const Gallery: NextPage = () => {
         <div className={styles.logo}>Amber Gallery</div>
         <div className={styles.navLinks}>
           <Link href="/">Home</Link>
-          <Link href="#about">About</Link>
-          <Link href="/user/login">Login</Link>
+          {user && user.email === 'ambergijselhart@gmail.com' && user.id === 1 && <Link href="/user/dashboard">Dashboard</Link>}
+          {!user && <Link href="/user/login">Login</Link>}
         </div>
       </nav>
 
@@ -126,8 +133,8 @@ const Gallery: NextPage = () => {
             onChange={(e) => setSortBy(e.target.value as 'newest' | 'oldest' | 'title')}
             className={styles.filterSelect}
           >
-            <option value="newest">Newest First</option>
-            <option value="oldest">Oldest First</option>
+            <option value="newest">Oldest First</option>
+            <option value="oldest">Newest First</option>
             <option value="title">Title A-Z</option>
           </select>
         </div>
@@ -141,25 +148,30 @@ const Gallery: NextPage = () => {
             filteredAndSortedArtworks.map((artwork) => (
               <div key={artwork.id} className={styles.artworkCard}>
                 <div className={styles.imageWrapper}>
-                  <Image
+                  {artwork.image_url !== null && <Image
                     src={artwork.image_url}
                     alt={artwork.title}
-                    layout="fill"
-                    objectFit="cover"
+                    fill
+                    style={{ objectFit: 'cover' }}
                     className={styles.artworkImage}
-                  />
+                    priority={true}
+                  />}
                 </div>
                 <div className={styles.artworkInfo}>
                   <h2>{artwork.title}</h2>
                   <div className={styles.artworkDetails}>
-                    <span>{artwork.medium}</span>
                     <span>•</span>
-                    <span>{artwork.date}</span>
+                    <span>{new Date(artwork.date).toLocaleDateString()}</span>
                   </div>
                   <p className={styles.artworkDescription}>{artwork.description}</p>
                   <div className={styles.artworkMeta}>
                     <span className={styles.location}>{artwork.place}</span>
-                    <button className={styles.viewButton}>View Details</button>
+                    <button 
+                      className={styles.viewButton}
+                      onClick={() => handleViewDetails(artwork)}
+                    >
+                      View Details
+                    </button>
                   </div>
                 </div>
               </div>
@@ -171,6 +183,42 @@ const Gallery: NextPage = () => {
           )}
         </div>
       </main>
+
+      {/* Modal */}
+      {selectedArtwork && (
+        <div className={styles.modalOverlay} onClick={() => setSelectedArtwork(null)}>
+          <div className={styles.modal} onClick={e => e.stopPropagation()}>
+            <button 
+              className={styles.closeButton}
+              onClick={() => setSelectedArtwork(null)}
+            >
+              ×
+            </button>
+            <div className={styles.modalContent}>
+              <div className={styles.modalImageWrapper}>
+                {selectedArtwork.image_url && (
+                  <Image
+                    src={selectedArtwork.image_url}
+                    alt={selectedArtwork.title}
+                    fill
+                    style={{ objectFit: 'contain' }}
+                    priority={true}
+                  />
+                )}
+              </div>
+              <div className={styles.modalInfo}>
+                <h2>{selectedArtwork.title}</h2>
+                <div className={styles.modalDetails}>
+                  <p><strong>Date:</strong> {new Date(selectedArtwork.date).toLocaleDateString()}</p>
+                  <p><strong>Location:</strong> {selectedArtwork.place}</p>
+                  <p><strong>Category:</strong> {selectedArtwork.category}</p>
+                </div>
+                <p className={styles.modalDescription}>{selectedArtwork.description}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
