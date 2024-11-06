@@ -2,6 +2,9 @@
 
 :root {
   --font-poppins: 'Poppins', sans-serif;
+  --background-color: #f0f0f0;
+  --text-color: #333;
+  --surface-color: #fff;
 }
 
 body {
