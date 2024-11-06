@@ -11,27 +11,22 @@ export interface Credentials {
 }
 
 export const SetUser = (user: User, token: string) => {
-  localStorage.setItem('user', JSON.stringify(user));
-  localStorage.setItem('token', token);
+  localStorage?.setItem('user', JSON.stringify(user));
+  localStorage?.setItem('token', token);
 }; 
 
 export const getUser = (): User | null => {
-  const user = localStorage.getItem('user');
+  const user = localStorage?.getItem('user');
   return user ? JSON.parse(user) : null;
 };
 
-export const GetToken = (): string | null => {
-  const token = localStorage.getItem('token');
-  return token ? token : null;
-};
-
 export const Logout = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
+  localStorage?.removeItem('token');
+  localStorage?.removeItem('user');
   window.location.href = '/user/login';
 };
 
 export const IsLoggedIn = (): boolean => {
-  const token = GetToken();
+  const token = localStorage?.getItem('token');
   return token ? true : false;
 };
