@@ -41,7 +41,7 @@ const Home: NextPage = () => {
         <div className={styles.logo}>Gallery</div>
         <div className={styles.navLinks}>
           <Link href="/gallery">Gallery</Link>
-          <Link href="/user/login">Login</Link>
+          {!IsLoggedIn() ? <Link href="/user/login">Login</Link> : <Link href="/user/dashboard">Dashboard</Link>}
         </div>
       </nav>
 
@@ -54,7 +54,7 @@ const Home: NextPage = () => {
           <h1 className={styles.title}>{`Amber's Gallery`}</h1>
 
           <div className={styles.grid}>
-            {artworks.slice(0).map((artwork) => (
+            {artworks.slice(-1).map((artwork) => (
               <div key={artwork.id} className={styles.card}>
                 <div className={styles.imageContainer}>
                 {artwork.image_url !== null && <Image

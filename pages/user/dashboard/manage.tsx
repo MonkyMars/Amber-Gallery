@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import { NextPage } from "next";
+import Nav from "../../../components/Nav";
 
 const ManageArtworks: NextPage = () => {
   const router = useRouter();
@@ -125,14 +126,7 @@ const ManageArtworks: NextPage = () => {
         <link rel="icon" href="/art-studies.png" />
       </Head>
 
-      <nav className={styles.nav}>
-        <div className={styles.logo}>Amber Gallery Dashboard</div>
-        <div className={styles.navLinks}>
-          <Link href="/gallery">View Gallery</Link>
-          <Link href="/user/settings">Settings</Link>
-          <button className={styles.logoutButton} onClick={() => Logout()}>Logout</button>
-        </div>
-      </nav>
+      <Nav page="dashboard"/>
 
       <div className={styles.contentWrapper}>
         <aside className={styles.sidebar}>

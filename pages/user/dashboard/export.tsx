@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { NextPage } from 'next';
 import html2canvas from 'html2canvas';
 import { getUser, IsLoggedIn, Logout, User } from '../../../utils/user-service';
+import Nav from '../../../components/Nav';
 const ExportArtworks: NextPage = () => {
   const router = useRouter();
   const [artworks, setArtworks] = useState<Artwork[]>([]);
@@ -78,14 +79,7 @@ const ExportArtworks: NextPage = () => {
         <link rel="icon" href="/art-studies.png" />
       </Head>
 
-      <nav className={styles.nav}>
-        <div className={styles.logo}>Amber Gallery Dashboard</div>
-        <div className={styles.navLinks}>
-          <Link href="/gallery">View Gallery</Link>
-          <Link href="/user/settings">Settings</Link>
-          <button className={styles.logoutButton} onClick={() => Logout()}>Logout</button>
-        </div>
-      </nav>
+      <Nav page="dashboard"/>
 
       <div className={styles.contentWrapper}>
       <aside className={styles.sidebar}>
