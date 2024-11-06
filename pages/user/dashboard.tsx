@@ -127,15 +127,14 @@ const Dashboard: NextPage = () => {
       </Head>
 
       <nav className={styles.nav}>
-        <div className={styles.logo}>Amber Gallery Dashboard</div>
+        <div className={styles.logo}>Amber Dashboard</div>
         <div className={styles.navLinks}>
-          <Link href="/gallery">View Gallery</Link>
-          <Link href="/user/settings">Settings</Link>
+          <Link href="/gallery">Gallery</Link>
           <button className={styles.logoutButton} onClick={() => Logout()}>Logout</button>
         </div>
       </nav>
 
-      <div className={styles.contentWrapper}>
+      <div className={styles.contentWrapper} style={{zIndex: '1'}}>
       <aside className={styles.sidebar}>
           <div className={styles.menuItem} onClick={() => router.push('/user/dashboard')}>
             <span className={styles.active}>Add Artwork</span>
