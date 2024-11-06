@@ -11,22 +11,29 @@ export interface Credentials {
 }
 
 export const SetUser = (user: User, token: string) => {
-  localStorage?.setItem('user', JSON.stringify(user));
-  localStorage?.setItem('token', token);
+  if(typeof window !== 'undefined') {
+    localStorage?.setItem('user', JSON.stringify(user));
+    localStorage?.setItem('token', token);
+  }
 }; 
 
 export const getUser = (): User | null => {
-  const user = localStorage?.getItem('user');
-  return user ? JSON.parse(user) : null;
+  if(typeof window !== 'undefined') {
+    const user = localStorage?.getItem('user');
+    return user ? JSON.parse(user) : null;
+  }
 };
 
 export const Logout = () => {
-  localStorage?.removeItem('token');
+  if(typeof window !== 'undefined') {
+    localStorage?.removeItem('token');
   localStorage?.removeItem('user');
   window.location.href = '/user/login';
-};
+}};
 
 export const IsLoggedIn = (): boolean => {
-  const token = localStorage?.getItem('token');
-  return token ? true : false;
+  if(typeof window !== 'undefined') {
+    const token = localStorage?.getItem('token');
+    return token ? true : false;
+  } 
 };
