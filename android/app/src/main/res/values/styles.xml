@@ -15,10 +15,7 @@
         <item name="android:background">@null</item>
     </style>
 
-    <!-- Splash screen theme using ic_launcher.png as background -->
     <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
-        <item name="android:background">@drawable/ic_launcher</item>
-        <item name="android:foreground">@drawable/ic_launcher</item>
+        <item name="android:windowBackground">@drawable/ic_launcher</item>
     </style>
-
 </resources>

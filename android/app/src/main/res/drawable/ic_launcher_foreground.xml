@@ -1,0 +1,8 @@
+<!-- ic_launcher_foreground.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="50dp"
+        android:height="50dp"
+        android:gravity="center"
+        android:drawable="@drawable/ic_launcher"/>
+</layer-list>
