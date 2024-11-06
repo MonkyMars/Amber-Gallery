@@ -100,7 +100,7 @@ const Gallery: NextPage = () => {
       </Head>
 
       <nav className={styles.nav}>
-        <div className={styles.logo} onClick={() => router.push('/')}>Amber Gallery</div>
+        <div className={styles.logo} onClick={() => router.push('/')}>Gallery</div>
         <div className={styles.navLinks}>
           <Link href="/">Home</Link>
           {user && user.email === 'ambergijselhart@gmail.com' && user.id === 1 && <Link href="/user/dashboard">Dashboard</Link>}

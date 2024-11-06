@@ -55,6 +55,6 @@ export default async function handler(
 
   } catch (error) {
     console.error('Login error:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ message: 'Internal server error', error: error });
   }
 }

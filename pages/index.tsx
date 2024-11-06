@@ -38,10 +38,9 @@ const Home: NextPage = () => {
       </Head>
 
       <nav className={styles.nav}>
-        <div className={styles.logo}>Amber Gallery</div>
+        <div className={styles.logo}>Gallery</div>
         <div className={styles.navLinks}>
           <Link href="/gallery">Gallery</Link>
-          <a href="#about">About</a>
           <Link href="/user/login">Login</Link>
         </div>
       </nav>
@@ -52,7 +51,7 @@ const Home: NextPage = () => {
         </aside>
 
         <main className={styles.main}>
-          <h1 className={styles.title}>My Art Gallery</h1>
+          <h1 className={styles.title}>{`Amber's Gallery`}</h1>
 
           <div className={styles.grid}>
             {artworks.slice(0).map((artwork) => (

@@ -45,7 +45,7 @@ const Login: NextPage = () => {
       </Head>
 
       <nav className={styles.nav}>
-        <div className={styles.logo}>Amber Gallery</div>
+        <div className={styles.logo}>Gallery</div>
         <div className={styles.navLinks}>
           <Link href="/">Home</Link>
           <Link href="/gallery">Gallery</Link>
