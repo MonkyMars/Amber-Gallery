@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  background-color: var(--background-color);
+  background-color: var(--second-background-color);
   color: var(--text-color);
 }
 
@@ -85,7 +85,6 @@
 }
 
 .menuItem .active {
-  background-color: var(--surface-color-active);
   color: #6c5ce7;
   font-weight: 600;
 }
@@ -102,7 +101,7 @@
 .title {
   font-size: 2rem;
   margin-bottom: 2rem;
-  color: #2d3436;
+  color: var(--text-color);
 }
 
 /* Stats Grid */
@@ -114,7 +113,7 @@
 }
 
 .statCard {
-  background-color: var(--surface-color);
+  background-color: var(--second-background-color);
   padding: 1.5rem;
   border-radius: 8px;
   text-align: center;
@@ -152,7 +151,6 @@
     border-radius: 8px;
     background: var(--surface-color);
     cursor: pointer;
-    transition: all 0.3s ease;
     position: relative;
 
     &:hover {
@@ -184,12 +182,11 @@
     content: 'Choose Image';
     display: inline-block;
     background: #333;
-    color: white;
+    color: var(--text-color);
     padding: 8px 16px;
     border-radius: 4px;
     margin-right: 12px;
     cursor: pointer;
-    transition: background 0.3s ease;
   }
 
   .imageInput:hover::before {
@@ -204,11 +201,10 @@
     top: 50%;
     transform: translateY(-50%);
     background: #6c5ce7;
-    color: white;
+    color: var(--text-color);
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
-    transition: background 0.3s ease;
   }
 
   .imageInput:hover::after {
@@ -231,16 +227,15 @@
 
 .formGroup label {
   font-weight: 500;
-  color: #2d3436;
+  color: var(--text-color);
 }
 
 .formGroup input,
 .formGroup textarea {
   padding: 0.8rem;
-  border: 1px solid #dfe6e9;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   font-size: 1rem;
-  transition: border-color 0.2s;
 }
 
 .formGroup input:focus,
@@ -257,13 +252,12 @@
 .submitButton {
   padding: 1rem;
   background-color: #6c5ce7;
-  color: white;
+  color: var(--text-color);
   border: none;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
 .submitButton:hover {
@@ -277,7 +271,7 @@
   }
 
   .sidebar {
-    width: 100%;
+    width: auto;
   }
 
   .statsGrid {
@@ -345,7 +339,7 @@
         width: 26px;
         left: 4px;
         bottom: 4px;
-        background-color: white;
+        background-color: var(--surface-color);
         transition: .4s;
         border-radius: 50%;
       }

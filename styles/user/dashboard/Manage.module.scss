@@ -1,7 +1,7 @@
 .container {
   min-height: 100vh;
-  background-color: #f8f9fa;
-  color: #2d3436;
+  background-color: var(--second-background-color);
+  color: var(--text-color);
 }
 
 /* Navigation */
@@ -10,7 +10,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem;
-  background-color: white;
+  background-color: var(--surface-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -20,7 +20,7 @@
 .logo {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #2d3436;
+  color: var(--text-color);
 }
 
 .navLinks {
@@ -30,7 +30,7 @@
 }
 
 .navLinks a {
-  color: #2d3436;
+  color: var(--text-color);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s;
@@ -43,7 +43,7 @@
 .logoutButton {
   padding: 0.5rem 1rem;
   background-color: #ff7675;
-  color: white;
+  color: var(--text-color);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -66,7 +66,7 @@
 /* Sidebar */
 .sidebar {
   width: 250px;
-  background-color: white;
+  background-color: var(--surface-color);
   border-radius: 12px;
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -81,7 +81,7 @@
 }
 
 .menuItem:hover {
-  background-color: #f1f2f6;
+  background-color: var(--hover-color);
 }
 
 .menuItem .active {
@@ -92,7 +92,7 @@
 /* Main Content */
 .main {
   flex: 1;
-  background-color: white;
+  background-color: var(--surface-color);
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -101,7 +101,7 @@
 .title {
   font-size: 2rem;
   margin-bottom: 2rem;
-  color: #2d3436;
+  color: var(--text-color);
 }
 
 .submitButton:hover {
@@ -122,11 +122,10 @@
 }
 
 .artworkCard {
-  background: white;
+  background: var(--surface-color);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
 }
 
 .artworkCard:hover {
@@ -143,7 +142,7 @@
     bottom: 8px;
     right: 8px;
     background: rgba(0, 0, 0, 0.7);
-    color: white;
+    color: #e3e3e3;
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 0.875rem;
@@ -166,19 +165,19 @@
 .artworkInfo h2 {
   margin: 0;
   font-size: 1.2rem;
-  color: #2d3436;
+  color: var(--text-color);
 }
 
 .artworkDetails {
   display: flex;
   gap: 0.5rem;
-  color: #636e72;
+  color: var(--text-color);
   margin: 0.5rem 0;
   font-size: 0.9rem;
 }
 
 .artworkDescription {
-  color: #636e72;
+  color: var(--text-color);
   margin: 0.5rem 0;
   line-height: 1.5;
 }
@@ -192,18 +191,17 @@
 }
 
 .location {
-  color: #6c5ce7;
+  color: var(--text-color);
   font-size: 0.9rem;
 }
 
 .viewButton {
   padding: 0.5rem 1rem;
   background-color: #6c5ce7;
-  color: white;
+  color: var(--text-color);
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
 .viewButton:hover {
@@ -214,7 +212,7 @@
   position: absolute;
   bottom: 120%;
   right: 0;
-  background-color: white;
+  background-color: var(--surface-color);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   padding: 8px 0;
@@ -230,10 +228,10 @@
     background: none;
     cursor: pointer;
     font-size: 14px;
-    color: #333;
-
+    color: var(--text-color);
+    border-radius: 4px;
     &:hover {
-      background-color: #f5f5f5;
+      background-color: var(--hover-color);
     }
   }
 }
@@ -244,7 +242,7 @@
   }
 
   .sidebar {
-    width: 100%;
+    width: auto;
   }
 }
 
@@ -262,7 +260,7 @@
 }
 
 .modalContent {
-  background: white;
+  background: var(--surface-color);
   padding: 2rem;
   border-radius: 8px;
   width: 90%;
@@ -283,7 +281,7 @@
   input, textarea {
     width: 100%;
     padding: 0.5rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     border-radius: 4px;
   }
   
@@ -307,7 +305,7 @@
 
 .saveButton {
   background: #6c5ce7;
-  color: white;
+  color: var(--text-color);
   
   &:hover {
     background: #5f4dd0;
@@ -316,7 +314,7 @@
 
 .cancelButton {
   background: #ff7675;
-  color: white;
+  color: var(--text-color);
   
   &:hover {
     background: #e66767;

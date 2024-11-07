@@ -1,7 +1,7 @@
 .container {
   min-height: 100vh;
-  background-color: #f8f9fa;
-  color: #2d3436;
+  background-color: var(--second-background-color);
+  color: var(--text-color);
 }
 
 /* Navigation */
@@ -10,7 +10,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem;
-  background-color: white;
+  background-color: var(--surface-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -20,7 +20,7 @@
 .logo {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #2d3436;
+  color: var(--text-color);
 }
 
 .navLinks {
@@ -29,10 +29,9 @@
 }
 
 .navLinks a {
-  color: #2d3436;
+  color: var(--text-color);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.2s;
 }
 
 .navLinks a:hover {
@@ -60,17 +59,16 @@
   padding: 0.8rem 1.2rem;
   border: none;
   border-radius: 8px;
-  background-color: white;
-  color: #2d3436;
+  background-color: var(--surface-color);
+  color: var(--text-color);
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .actionButton:hover {
   background-color: #6c5ce7;
-  color: white;
+  color: var(--text-color);
   transform: translateY(-2px);
 }
 
@@ -82,7 +80,7 @@
 .title {
   font-size: 2.5rem;
   margin-bottom: 2rem;
-  color: #2d3436;
+  color: var(--text-color);
 }
 
 .grid {
@@ -93,10 +91,9 @@
 
 /* Artwork Cards */
 .card {
-  background: white;
+  background: var(--surface-color);
   border-radius: 12px;
   overflow: hidden;
-  transition: transform 0.2s;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -114,7 +111,7 @@
   padding: 1rem;
   margin: 0;
   font-size: 1.2rem;
-  color: #2d3436;
+  color: var(--text-color);
 }
 
 .details {
@@ -123,16 +120,16 @@
 
 .details p {
   margin: 0.5rem 0;
-  color: #636e72;
+  color: var(--text-color);
 }
 
 .details strong {
-  color: #2d3436;
+  color: var(--text-color);
 }
 
 /* Footer */
 .footer {
-  background-color: white;
+  background-color: var(--surface-color);
   padding: 3rem 2rem;
   margin-top: 4rem;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
@@ -147,7 +144,7 @@
 }
 
 .footerSection h3 {
-  color: #2d3436;
+  color: var(--text-color);
   margin-bottom: 1rem;
 }
 
@@ -157,7 +154,7 @@
 }
 
 .socialLinks a {
-  color: #636e72;
+  color: var(--text-color);
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -169,11 +166,10 @@
 .subscribeButton {
   padding: 0.8rem 1.5rem;
   background-color: #6c5ce7;
-  color: white;
+  color: var(--text-color);
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
 .subscribeButton:hover {
@@ -184,8 +180,8 @@
   text-align: center;
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid #edf2f7;
-  color: #636e72;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-color);
 }
 
 /* Responsive Design */

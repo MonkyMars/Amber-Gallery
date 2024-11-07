@@ -1,7 +1,7 @@
 .container {
   min-height: 100vh;
-  background-color: #f8f9fa;
-  color: #2d3436;
+  background-color: var(--second-background-color);
+  color: var(--text-color);
 }
 
 /* Navigation */
@@ -10,7 +10,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem;
-  background-color: white;
+  background-color: var(--surface-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -20,7 +20,7 @@
 .logo {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #2d3436;
+  color: var(--text-color);
 }
 
 .navLinks {
@@ -29,7 +29,7 @@
 }
 
 .navLinks a {
-  color: #2d3436;
+  color: var(--text-color);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s;
@@ -49,7 +49,7 @@
 }
 
 .loginCard {
-  background-color: white;
+  background-color: var(--surface-color);
   border-radius: 12px;
   padding: 2.5rem;
   width: 100%;
@@ -59,13 +59,13 @@
 
 .title {
   font-size: 2rem;
-  color: #2d3436;
+  color: var(--text-color);
   margin-bottom: 0.5rem;
   text-align: center;
 }
 
 .subtitle {
-  color: #636e72;
+  color: var(--text-color);
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -85,12 +85,12 @@
 
 .formGroup label {
   font-weight: 500;
-  color: #2d3436;
+  color: var(--text-color);
 }
 
 .formGroup input {
   padding: 0.8rem;
-  border: 1px solid #dfe6e9;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   font-size: 1rem;
   transition: border-color 0.2s;
@@ -118,7 +118,7 @@
 .loginButton {
   padding: 1rem;
   background-color: #6c5ce7;
-  color: white;
+  color: var(--text-color);
   border: none;
   border-radius: 8px;
   font-size: 1rem;
@@ -135,7 +135,7 @@
 .registerPrompt {
   margin-top: 2rem;
   text-align: center;
-  color: #636e72;
+  color: var(--text-color);
 }
 
 .registerPrompt a {

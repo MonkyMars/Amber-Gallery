@@ -8,6 +8,7 @@ import { getArtworks, type Artwork } from "../utils/artwork-service";
 import { getUser, IsLoggedIn, type User } from "../utils/user-service";
 import { useEffect } from "react";
 import Link from "next/link";
+import Nav from "../components/Nav";
 const Home: NextPage = () => {
   const router = useRouter();
   const [artworks, setArtworks] = useState<Artwork[]>([]);
@@ -37,14 +38,14 @@ const Home: NextPage = () => {
         <link rel="icon" href="/art-studies.png" />
       </Head>
 
-      <nav className={styles.nav}>
+      {/* <nav className={styles.nav}>
         <div className={styles.logo}>Gallery</div>
         <div className={styles.navLinks}>
           <Link href="/gallery">Gallery</Link>
           {!IsLoggedIn() ? <Link href="/user/login">Login</Link> : <Link href="/user/dashboard">Dashboard</Link>}
         </div>
-      </nav>
-
+      </nav> */}
+      <Nav page="home" />
       <div className={styles.contentWrapper}>
         <aside className={styles.sidebar}>
           {user && user.email === 'ambergijselhart@gmail.com' && user.id === 1 && <button className={styles.actionButton} onClick={() => router.push('/user/dashboard')}>Add New Artwork</button>}

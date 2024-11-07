@@ -11,7 +11,6 @@ import {
   type User,
   IsLoggedIn,
 } from "../../utils/user-service";
-import { useTheme } from "../../utils/ThemeContext";
 import { type Analytics } from "../../utils/artwork-service";
 import Nav from "../../components/Nav";
 const Dashboard: NextPage = () => {
@@ -121,8 +120,6 @@ const Dashboard: NextPage = () => {
       .then((data) => setAnalytics(data))
       .catch((error) => console.error("Error fetching analytics:", error));
   }, []);
-
-  const { theme, toggleTheme } = useTheme();
 
   return (
     <div className={styles.container}>

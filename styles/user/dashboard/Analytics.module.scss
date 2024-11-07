@@ -1,7 +1,7 @@
 .container {
   min-height: 100vh;
-  background-color: #f8f9fa;
-  color: #2d3436;
+  background-color: var(--second-background-color);
+  color: var(--text-color);
 }
 
 /* Navigation */
@@ -10,7 +10,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem;
-  background-color: white;
+  background-color: var(--surface-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -33,7 +33,6 @@
   color: #2d3436;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.2s;
 }
 
 .navLinks a:hover {
@@ -43,11 +42,10 @@
 .logoutButton {
   padding: 0.5rem 1rem;
   background-color: #ff7675;
-  color: white;
+  color: var(--text-color);
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
 .logoutButton:hover {
@@ -66,7 +64,7 @@
 /* Sidebar */
 .sidebar {
   width: 250px;
-  background-color: white;
+  background-color: var(--surface-color);
   border-radius: 12px;
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -77,11 +75,11 @@
   margin-bottom: 0.5rem;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  color: var(--text-color);
 }
 
 .menuItem:hover {
-  background-color: #f1f2f6;
+  background-color: var(--hover-color);
 }
 
 .menuItem .active {
@@ -92,7 +90,7 @@
 /* Main Content */
 .main {
   flex: 1;
-  background-color: white;
+  background-color: var(--surface-color);
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -101,7 +99,7 @@
 .title {
   font-size: 2rem;
   margin-bottom: 2rem;
-  color: #2d3436;
+  color: var(--text-color);
 }
 
 .submitButton:hover {
@@ -115,19 +113,19 @@
   }
 
   .sidebar {
-    width: 100%;
+    width: auto;
   }
 }
 
 .analyticsContainer {
   padding: 1.5rem;
-  background: #fff;
+  background: var(--surface-color);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   h2 {
     margin-bottom: 1.5rem;
-    color: #333;
+    color: var(--text-color);
   }
 }
 
@@ -138,10 +136,10 @@
 }
 
 .analyticsCard {
-  background: #f8f9fa;
+  background: var(--second-background-color);
   padding: 1.25rem;
   border-radius: 6px;
-  border: 1px solid #e9ecef;
+  border: 1px solid var(--border-color);
   transition: transform 0.2s ease;
 
   &:hover {
@@ -149,14 +147,14 @@
   }
 
   h3 {
-    color: #495057;
+    color: var(--text-color);
     margin-bottom: 1rem;
     font-size: 1.1rem;
     font-weight: 600;
   }
 
   p {
-    color: #6c757d;
+    color: var(--text-color);
     margin-bottom: 0.5rem;
     font-size: 0.95rem;
 

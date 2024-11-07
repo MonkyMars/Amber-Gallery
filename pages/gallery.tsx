@@ -7,7 +7,8 @@ import styles from "../styles/Gallery.module.scss";
 import { getArtworks, searchArtworks, type Artwork, incrementArtworkViews } from '../utils/artwork-service';
 import { getUser, IsLoggedIn, type User } from "../utils/user-service";
 import { useRouter } from "next/router";
-import { useTheme } from '../utils/ThemeContext';
+import Nav from "../components/Nav";
+
 const Gallery: NextPage = () => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,8 +18,6 @@ const Gallery: NextPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
-  const { theme, toggleTheme } = useTheme();
-
   useEffect(() => {
     const loadArtworks = async () => {
       setIsLoading(true);
@@ -99,15 +98,15 @@ const Gallery: NextPage = () => {
         <link rel="icon" href="/art-studies.png" />
       </Head>
 
-      <nav className={styles.nav}>
+      {/* <nav className={styles.nav}>
         <div className={styles.logo} onClick={() => router.push('/')}>Gallery</div>
         <div className={styles.navLinks}>
           <Link href="/">Home</Link>
           {user && user.email === 'ambergijselhart@gmail.com' && user.id === 1 && <Link href="/user/dashboard">Dashboard</Link>}
           {!user && <Link href="/user/login">Login</Link>}
         </div>
-      </nav>
-
+      </nav> */}
+      <Nav page="gallery" />
       <div className={styles.topBar}>
         <div className={styles.searchBar}>
           <input
