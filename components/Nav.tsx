@@ -17,7 +17,7 @@ const Nav = ({page}) => {
   return (
     <>
       <nav className={styles.nav}>
-        <div className={styles.logo}>Amber {page === "dashboard" ? "Dashboard" : "Gallery"}</div>
+        <div className={styles.logo}>{page === "dashboard" && "Dashboard"}{ page === 'gallery' && "Gallery"} {page === 'home' && 'Home'}</div>
         <div className={styles.navLinks}>
           {/* Theme switcher */}
           {mounted && (
