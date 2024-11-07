@@ -11,7 +11,7 @@ import {
   type User,
   IsLoggedIn,
 } from "../../utils/user-service";
-import { type Analytics } from "../../utils/artwork-service";
+import { getArtworks, type ManagedArtwork, type Analytics, getManagedArtworks } from "../../utils/artwork-service";
 import Nav from "../../components/Nav";
 const Dashboard: NextPage = () => {
   const router = useRouter();
@@ -34,7 +34,7 @@ const Dashboard: NextPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [analytics, setAnalytics] = useState<Analytics>({ count: 0, views: 0 });
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-
+  const [artworks, setArtworks] = useState<ManagedArtwork[]>([]);
   const convertToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -43,6 +43,10 @@ const Dashboard: NextPage = () => {
       reader.onerror = (error) => reject(error);
     });
   };
+
+  useEffect(() => {
+    getManagedArtworks().then(setArtworks);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -168,8 +172,20 @@ const Dashboard: NextPage = () => {
               <p className={styles.statNumber}>{analytics.count}</p>
             </div>
             <div className={styles.statCard}>
-              <h3>This Month</h3>
-              <p className={styles.statNumber}>3</p>
+              <h3>Last Added</h3>
+              <p className={styles.statNumber}>{
+                  artworks.length > 0 
+                    ? (() => {
+                        const mostRecent = artworks.reduce((latest, art) => {
+                          if (!art.created_at) return latest;
+                          const artDate = new Date(art.created_at);
+                          if (!latest) return artDate;
+                          return artDate > latest ? artDate : latest;
+                        }, null as Date | null);
+                        return mostRecent ? mostRecent.toLocaleDateString() : 'N/A';
+                      })()
+                    : 'N/A'
+                }</p>
             </div>
             <div className={styles.statCard}>
               <h3>Views</h3>
