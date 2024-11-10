@@ -38,13 +38,6 @@ const Home: NextPage = () => {
         <link rel="icon" href="/art-studies.png" />
       </Head>
 
-      {/* <nav className={styles.nav}>
-        <div className={styles.logo}>Gallery</div>
-        <div className={styles.navLinks}>
-          <Link href="/gallery">Gallery</Link>
-          {!IsLoggedIn() ? <Link href="/user/login">Login</Link> : <Link href="/user/dashboard">Dashboard</Link>}
-        </div>
-      </nav> */}
       <Nav page="home" />
       <div className={styles.contentWrapper}>
         <aside className={styles.sidebar}>
@@ -55,7 +48,7 @@ const Home: NextPage = () => {
           <h1 className={styles.title}>{`Amber's Gallery`}</h1>
 
           <div className={styles.grid}>
-            {artworks.slice(-1).map((artwork) => (
+            {artworks.slice(0, 3).map((artwork) => (
               <div key={artwork.id} className={styles.card}>
                 <div className={styles.imageContainer}>
                 {artwork.image_url !== null && <Image

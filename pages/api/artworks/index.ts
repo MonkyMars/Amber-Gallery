@@ -19,17 +19,16 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
 
     case 'POST':
       try {
-        const { title, date, place, description, image } = req.body;
-        
-        console.log(req.body);
-        if (!title || !date || !place || !description || !image) {
+        const { title, date, place, description, image, categories } = req.body;
+
+        if (!title || !date || !place || !description || !image || !categories) {
           return res.status(400).json({ 
             error: 'Missing required fields',
-            message: 'All fields (title, date, place, description, image) are required',
+            message: 'All fields (title, date, place, description, image, category) are required',
             body: req.body
           });
         }
-
+        const categoriesString = categories.map(cat => cat.name).join(', ');
         const result = await sql`
           INSERT INTO artworks (
             title, 
@@ -37,6 +36,7 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
             place, 
             description, 
             image_url, 
+            category,
             user_id,
             created_at,
             updated_at,
@@ -48,6 +48,7 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
             ${place}, 
             ${description}, 
             ${image}, 
+            ${categoriesString},
             ${req.user!.userId},
             NOW(),
             NOW(),

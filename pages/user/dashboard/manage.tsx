@@ -157,7 +157,7 @@ const ManageArtworks: NextPage = () => {
         </aside>
 
         <main className={styles.main}>
-          <h1 className={styles.title}>Manage Artworks</h1>
+          <h1 className={styles.title}>Manage Artworks <strong>({artworks?.length})</strong></h1>
           <div className={styles.artworksGrid}>
             {artworks.map((artwork) => (
               <div key={artwork.id} className={styles.artworkCard}>

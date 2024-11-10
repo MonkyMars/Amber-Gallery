@@ -9,6 +9,7 @@ import { NextPage } from 'next';
 import html2canvas from 'html2canvas';
 import { getUser, IsLoggedIn, Logout, User } from '../../../utils/user-service';
 import Nav from '../../../components/Nav';
+
 const ExportArtworks: NextPage = () => {
   const router = useRouter();
   const [artworks, setArtworks] = useState<Artwork[]>([]);

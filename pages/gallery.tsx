@@ -4,15 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useMemo, useEffect } from "react";
 import styles from "../styles/Gallery.module.scss";
-import { getArtworks, searchArtworks, type Artwork, incrementArtworkViews } from '../utils/artwork-service';
+import { getArtworks, searchArtworks, type Artwork, incrementArtworkViews, Categories, Category } from '../utils/artwork-service';
 import { getUser, IsLoggedIn, type User } from "../utils/user-service";
 import { useRouter } from "next/router";
 import Nav from "../components/Nav";
+import AOS from "aos"
+import "aos/dist/aos.css"
 
 const Gallery: NextPage = () => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
   const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'title'>('newest');
   const [artworks, setArtworks] = useState<Artwork[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -32,8 +34,21 @@ const Gallery: NextPage = () => {
   useEffect(() => {
     const fetchFilteredArtworks = async () => {
       setIsLoading(true);
-      const data = await searchArtworks(searchTerm, selectedCategory);
-      setArtworks(data);
+      const categoryNames = selectedCategories.map(cat => cat.name);
+      
+      if (categoryNames?.length === 0) {
+        const data = await searchArtworks(searchTerm, '');
+        setArtworks(data);
+      } else {
+        const data = await searchArtworks(searchTerm, '');
+        const filteredData = data.filter(artwork => {
+          const artworkCategories = artwork?.category?.split(',').map(c => c.trim());
+          return categoryNames?.some(category => 
+            artworkCategories?.includes(category)
+          );
+        });
+        setArtworks(filteredData);
+      }
       setIsLoading(false);
     };
 
@@ -42,9 +57,18 @@ const Gallery: NextPage = () => {
     }, 300);
 
     return () => clearTimeout(timeoutId);
-  }, [searchTerm, selectedCategory]);
+  }, [searchTerm, selectedCategories]);
 
-  // Modify the filteredAndSortedArtworks to only handle sorting
+  useEffect(() => {
+    AOS.init({
+      offset: 0, 
+      duration: 400, 
+      easing: 'ease-in-out',
+      delay: 10,
+      once: true,
+    });
+  }, []);
+  
   const filteredAndSortedArtworks = useMemo(() => {
     return [...artworks].sort((a, b) => {
       switch (sortBy) {
@@ -59,12 +83,6 @@ const Gallery: NextPage = () => {
       }
     });
   }, [artworks, sortBy]);
-
-  // Get unique categories from artworks
-  const categories = useMemo(() => {
-    const uniqueCategories = new Set(artworks.map(artwork => artwork.category).filter(Boolean));
-    return ["all", ...Array.from(uniqueCategories)] as string[];
-  }, [artworks]);
 
   // Debounced search handler
   const debouncedSetSearchTerm = useMemo(
@@ -98,14 +116,6 @@ const Gallery: NextPage = () => {
         <link rel="icon" href="/art-studies.png" />
       </Head>
 
-      {/* <nav className={styles.nav}>
-        <div className={styles.logo} onClick={() => router.push('/')}>Gallery</div>
-        <div className={styles.navLinks}>
-          <Link href="/">Home</Link>
-          {user && user.email === 'ambergijselhart@gmail.com' && user.id === 1 && <Link href="/user/dashboard">Dashboard</Link>}
-          {!user && <Link href="/user/login">Login</Link>}
-        </div>
-      </nav> */}
       <Nav page="gallery" />
       <div className={styles.topBar}>
         <div className={styles.searchBar}>
@@ -118,17 +128,57 @@ const Gallery: NextPage = () => {
         </div>
 
         <div className={styles.filters}>
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className={styles.filterSelect}
-          >
-            {categories.map((category) => (
-              <option key={category} value={category.toLowerCase()}>
-                {category === "all" ? "All Categories" : category}
-              </option>
-            ))}
-          </select>
+          <div className={styles.categorySelector}>
+            <select
+              value=""
+              onChange={(e) => {
+                const selectedValue = e.target.value;
+                if (selectedValue && !selectedCategories.some(cat => cat.name === selectedValue)) {
+                  const newCategory = {
+                    name: selectedValue,
+                    id: Categories.findIndex(cat => cat.name === selectedValue)
+                  };
+                  setSelectedCategories([...selectedCategories, newCategory]);
+                }
+                e.target.value = '';
+              }}
+              className={styles.categorySelect}
+            >
+              <option value="">Select a category</option>
+              {Categories.map((category) => (
+                <option key={category.id} value={category.name}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {selectedCategories.length > 0 && (
+            <div className={styles.selectedCategories}>
+              {selectedCategories.length > 0 ? (
+              <div className={styles.categoryTags}>
+                {selectedCategories.map((cat, index) => (
+                  <span key={index} className={styles.categoryTag} data-aos="fade-left">
+                    {cat.name}
+                    <button
+                      type="button"
+                      className={styles.removeCategory}
+                      onClick={() => {
+                        setSelectedCategories(
+                          selectedCategories.filter((_, i) => i !== index)
+                        );
+                      }}
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <span className={styles.noCategoriesText}>No categories selected</span>
+              )}
+            </div>
+          )}
 
           <select
             value={sortBy}
@@ -221,22 +271,6 @@ const Gallery: NextPage = () => {
           </div>
         </div>
       )}
-
-      {/* <footer className={styles.footer}>
-        <div className={styles.themeToggle}>
-          <label className={styles.switch}>
-            <input
-              type="checkbox"
-              checked={theme === 'dark'}
-              onChange={toggleTheme}
-            />
-            <span className={styles.slider}></span>
-          </label>
-          <span className={styles.themeLabel}>
-            {theme === 'dark' ? 'Dark' : 'Light'} Mode
-          </span>
-        </div>
-      </footer> */}
     </div>
   );
 };

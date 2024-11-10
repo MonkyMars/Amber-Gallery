@@ -5,17 +5,29 @@ import styles from "../../styles/user/Dashboard.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import AOS from "aos"
+import "aos/dist/aos.css"
 import {
   getUser,
   Logout,
   type User,
   IsLoggedIn,
 } from "../../utils/user-service";
-import { getArtworks, type ManagedArtwork, type Analytics, getManagedArtworks } from "../../utils/artwork-service";
+
+import { type ManagedArtwork, type Analytics, type Category, getManagedArtworks, Categories } from "../../utils/artwork-service";
 import Nav from "../../components/Nav";
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    AOS.init({
+      offset: 0, 
+      duration: 400, 
+      easing: 'ease-in-out',
+      delay: 10,
+      once: true,
+    });
+  }, []);
   useEffect(() => {
     if (!IsLoggedIn()) {
       router.push("/user/login");
@@ -30,6 +42,7 @@ const Dashboard: NextPage = () => {
     place: "",
     description: "",
     imageFile: null as File | null,
+    categories: [] as Category[],
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [analytics, setAnalytics] = useState<Analytics>({ count: 0, views: 0 });
@@ -75,6 +88,7 @@ const Dashboard: NextPage = () => {
         place: newArtwork.place,
         description: newArtwork.description,
         image: imageUrl,
+        categories: newArtwork.categories,
         createdAt: new Date().toISOString(),
       };
 
@@ -90,12 +104,17 @@ const Dashboard: NextPage = () => {
       if (!response.ok) {
         throw new Error("Failed to create artwork", { cause: response });
       }
+      if(response.status === 401){
+        Logout();
+        router.push("/user/login");
+      }
       setNewArtwork({
         title: "",
         date: "",
         place: "",
         description: "",
         imageFile: null,
+        categories: [],
       });
       setImagePreview(null);
     } catch (error) {
@@ -233,8 +252,66 @@ const Dashboard: NextPage = () => {
                   required
                 />
               </div>
-            </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="category">Categories</label>
+                <div className={styles.categorySelector}>
+                  <select
+                    id="category"
+                    value=""
+                    onChange={(e) => {
+                      const selectedValue = e.target.value;
+                      if (selectedValue && !newArtwork.categories.some(cat => cat.name === selectedValue)) {
+                        const newCategory = {
+                          name: selectedValue,
+                          id: Categories.findIndex(cat => cat.name === selectedValue)
+                        };
+                        setNewArtwork({
+                          ...newArtwork,
+                          categories: [...newArtwork.categories, newCategory]
+                        });
+                      }
+                      e.target.value = '';
+                    }}
+                    className={styles.categorySelect}
+                  >
+                    <option value="">Select a category</option>
+                    {Categories.map((category) => (
+                      <option key={category.id} value={category.name}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
+                <div className={styles.selectedCategories}>
+                  <p>Selected categories:</p>
+                  {newArtwork.categories.length > 0 ? (
+                    <div className={styles.categoryTags}>
+                      {newArtwork.categories.map((cat, index) => (
+                        <span key={index} className={styles.categoryTag} data-aos="fade-left">
+                          {cat.name}
+                          <button
+                            type="button"
+                            className={styles.removeCategory}
+                            onClick={() => {
+                              setNewArtwork({
+                                ...newArtwork,
+                                categories: newArtwork.categories.filter((_, i) => i !== index)
+                              });
+                            }}
+                          >
+                            ×
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <span className={styles.noCategoriesText}>No categories selected</span>
+                  )}
+                </div>
+              </div>
+            </div>
+            
             <div className={styles.formGroup}>
               <label htmlFor="description">Description</label>
               <textarea

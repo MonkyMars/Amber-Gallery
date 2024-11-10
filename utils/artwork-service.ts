@@ -1,4 +1,5 @@
 import { sql } from '@vercel/postgres';
+
 export type Artwork = {
   id: number;
   title: string;
@@ -24,6 +25,27 @@ export type Analytics = {
   count: number;
   views: number;
 }
+
+export type Category = {
+  id: number;
+  name: string;
+}
+
+interface CategoryType extends Category {
+  description: string;
+}
+
+export const Categories: CategoryType[] = [
+  { id: 0, name: 'Digital', description: 'All artworks that are digital' },
+  { id: 1, name: 'Drawings', description: 'All artworks that are drawings' },
+  { id: 2, name: 'School', description: 'Artworks created for school' },
+  { id: 3, name: 'Personal', description: 'Personal artworks' },
+  { id: 4, name: 'Print', description: 'Print' },
+  { id: 5, name: 'Mixed Media', description: 'Mixed Media' },
+  { id: 6, name: '3D artworks', description: '3D artworks' },
+  { id: 7, name: 'Photography', description: 'All artworks that are photography' },
+  { id: 8, name: 'Other', description: 'Other' },
+];
 
 export async function getArtworks(): Promise<Artwork[]> {
   try {
