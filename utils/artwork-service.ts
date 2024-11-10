@@ -47,6 +47,12 @@ export const Categories: CategoryType[] = [
   { id: 8, name: 'Other', description: 'Other' },
 ];
 
+export interface EditingArtwork extends Artwork {
+  imageFile?: File;
+  imagePreview?: string;
+  categories?: Category[];
+}
+
 export async function getArtworks(): Promise<Artwork[]> {
   try {
     const { rows } = await sql`

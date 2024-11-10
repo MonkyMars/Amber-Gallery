@@ -9,14 +9,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       await sql`DELETE FROM artworks WHERE id = ${Number(id)}`;
       res.status(200).json({ message: 'Artwork deleted successfully' });
     } else if (req.method === 'PUT') {
-      const { title, description, date, place, image_url } = req.body;
+      const { title, description, date, place, image_url, category } = req.body;
       const result = await sql`
         UPDATE artworks 
         SET title = ${title}, 
             description = ${description}, 
             date = ${date}, 
             place = ${place}, 
-            image_url = ${image_url}
+            image_url = ${image_url},
+            category = ${category}
         WHERE id = ${Number(id)}
         RETURNING *
       `;

@@ -271,7 +271,7 @@
 
 .formGroup {
   margin-bottom: 1rem;
-  
+  font-family: 'Poppins', sans-serif;
   label {
     display: block;
     margin-bottom: 0.5rem;
@@ -280,11 +280,29 @@
   
   input, textarea {
     width: 100%;
-    padding: 0.5rem;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    padding: 0.8rem 1.2rem;
     border: 1px solid var(--border-color);
-    border-radius: 4px;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    background-color: var(--second-background-color);
+    
+    &:focus {
+      outline: none;
+      border-color: #6c5ce7;
+      box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+    }
   }
-  
+  img{
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    width: 100%;
+    max-height: 50%;
+    margin: 1em 0 1em 0;
+    border-radius: 8px;
+  }
   textarea {
     min-height: 100px;
   }
@@ -320,3 +338,77 @@
     background: #e66767;
   }
 } 
+
+.categorySelector {
+  width: 200px;
+  flex-shrink: 0;
+  margin-bottom: 1rem;
+  .categorySelect {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--second-background-color);
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    
+    &:focus {
+      outline: none;
+      border-color: #6c5ce7;
+      box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+    }
+  }
+}
+
+.selectedCategories {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  
+  p {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    white-space: nowrap;
+  }
+}
+
+.categoryTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: 100%;
+}
+
+.categoryTag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--second-background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: var(--border-color);
+  }
+
+  .removeCategory {
+    background: none;
+    border: none;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    padding: 0 0.25rem;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    opacity: 0.6;
+    transition: all 0.2s ease;
+
+    &:hover {
+      opacity: 1;
+      color: #ff4757;
+    }
+  }
+}

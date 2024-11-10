@@ -6,7 +6,8 @@ import {
   deleteArtwork,
   updateArtwork,
   type EditingArtwork,
-  type ManagedArtwork
+  type ManagedArtwork,
+  Categories
 } from "../../../utils/artwork-service";
 import { getUser, IsLoggedIn, Logout, User } from '../../../utils/user-service';
 import { useEffect, useState } from "react";
@@ -55,7 +56,17 @@ const ManageArtworks: NextPage = () => {
   };
 
   const handleEdit = (artwork: Artwork) => {
-    setEditingArtwork(artwork);
+    const categoryArray = artwork.category 
+      ? artwork.category.split(',').map(catName => ({
+          name: catName.trim(),
+          id: Categories.findIndex(cat => cat.name === catName.trim())
+        }))
+      : [];
+
+    setEditingArtwork({
+      ...artwork,
+      categories: categoryArray
+    });
     setActionMenu(null);
   };
 
@@ -94,17 +105,27 @@ const ManageArtworks: NextPage = () => {
           imageUrl = url;
         }
 
+        const categoryString = editingArtwork.categories
+          ? editingArtwork.categories.map(cat => cat.name).join(', ')
+          : '';
+
         const artworkToUpdate: Artwork = {
           ...editingArtwork,
-          image_url: imageUrl
+          image_url: imageUrl,
+          category: categoryString
         };
-
-        delete (artworkToUpdate as any).imageFile;
 
         await updateArtwork(artworkToUpdate);
         setArtworks(
           artworks.map((art) =>
-            art.id === editingArtwork.id ? { ...artworkToUpdate, views: art.views, created_at: art.created_at, updated_at: new Date().toISOString() } : art
+            art.id === editingArtwork.id 
+              ? { 
+                  ...artworkToUpdate, 
+                  views: art.views, 
+                  created_at: art.created_at, 
+                  updated_at: new Date().toISOString() 
+                } 
+              : art
           )
         );
         setEditingArtwork(null);
@@ -289,6 +310,63 @@ const ManageArtworks: NextPage = () => {
                     })
                   }
                 />
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="categories">Categories</label>
+                <div className={styles.categorySelector}>
+                  <select
+                    id="categories"
+                    value=""
+                    onChange={(e) => {
+                      const selectedValue = e.target.value;
+                      if (selectedValue && !editingArtwork.categories?.some(cat => cat.name === selectedValue)) {
+                        const newCategory = {
+                          name: selectedValue,
+                          id: Categories.findIndex(cat => cat.name === selectedValue)
+                        };
+                        setEditingArtwork({
+                          ...editingArtwork,
+                          categories: [...(editingArtwork.categories || []), newCategory]
+                        });
+                      }
+                      e.target.value = '';
+                    }}
+                    className={styles.categorySelect}
+                  >
+                    <option value="">Select a category</option>
+                    {Categories.map((category) => (
+                      <option key={category.id} value={category.name}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className={styles.selectedCategories}>
+                  {editingArtwork.categories?.length > 0 ? (
+                    <div className={styles.categoryTags}>
+                      {editingArtwork.categories.map((cat, index) => (
+                        <span key={index} className={styles.categoryTag} data-aos="fade-left">
+                          {cat.name}
+                          <button
+                            type="button"
+                            className={styles.removeCategory}
+                            onClick={() => {
+                              setEditingArtwork({
+                                ...editingArtwork,
+                                categories: editingArtwork.categories.filter((_, i) => i !== index)
+                              });
+                            }}
+                          >
+                            ×
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <span className={styles.noCategoriesText}>No categories selected</span>
+                  )}
+                </div>
               </div>
               <div className={styles.modalActions}>
                 <button type="submit" className={styles.saveButton}>
