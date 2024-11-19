@@ -185,8 +185,8 @@ const Gallery: NextPage = () => {
             onChange={(e) => setSortBy(e.target.value as 'newest' | 'oldest' | 'title')}
             className={styles.filterSelect}
           >
-            <option value="newest">Oldest First</option>
-            <option value="oldest">Newest First</option>
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
             <option value="title">Title A-Z</option>
           </select>
         </div>
