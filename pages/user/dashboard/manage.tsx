@@ -179,6 +179,76 @@ const ManageArtworks: NextPage = () => {
 
         <main className={styles.main}>
           <h1 className={styles.title}>Manage Artworks <strong>({artworks?.length})</strong></h1>
+
+{/*
+        <div className={styles.filters}>
+          <div className={styles.categorySelector}>
+            <select
+              value=""
+              onChange={(e) => {
+                const selectedValue = e.target.value;
+                if (selectedValue && !selectedCategories.some(cat => cat.name === selectedValue)) {
+                  const newCategory = {
+                    name: selectedValue,
+                    id: Categories.findIndex(cat => cat.name === selectedValue)
+                  };
+                  setSelectedCategories([...selectedCategories, newCategory]);
+                }
+                e.target.value = '';
+              }}
+              className={styles.categorySelect}
+            >
+              <option value="">Select a category</option>
+              {Categories.map((category) => (
+                <option key={category.id} value={category.name}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {selectedCategories.length > 0 && (
+            <div className={styles.selectedCategories}>
+              {selectedCategories.length > 0 ? (
+              <div className={styles.categoryTags}>
+                {selectedCategories.map((cat, index) => (
+                  <span key={index} className={styles.categoryTag} data-aos="fade-left">
+                    {cat.name}
+                    <button
+                      type="button"
+                      className={styles.removeCategory}
+                      onClick={() => {
+                        setSelectedCategories(
+                          selectedCategories.filter((_, i) => i !== index)
+                        );
+                      }}
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <span className={styles.noCategoriesText}>No categories selected</span>
+              )}
+            </div>
+          )}
+
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as 'newest' | 'oldest' | 'title')}
+            className={styles.filterSelect}
+          >
+            <option value="newest">Oldest First</option>
+            <option value="oldest">Newest First</option>
+            <option value="title">Title A-Z</option>
+          </select>
+        </div>
+      </div>
+
+
+*/}
+
           <div className={styles.artworksGrid}>
             {artworks.map((artwork) => (
               <div key={artwork.id} className={styles.artworkCard}>
