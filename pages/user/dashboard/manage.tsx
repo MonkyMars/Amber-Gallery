@@ -1,7 +1,6 @@
 import Image from "next/image";
 import styles from "../../../styles/user/dashboard/Manage.module.scss";
 import {
-  getManagedArtworks,
   type Artwork,
   deleteArtwork,
   updateArtwork,
@@ -9,7 +8,6 @@ import {
   type ManagedArtwork,
   Categories,
   Category,
-  searchArtworks,
   searchManagedArtworks
 } from "../../../utils/artwork-service";
 import { getUser, IsLoggedIn, Logout, User } from '../../../utils/user-service';
@@ -290,16 +288,6 @@ const ManageArtworks: NextPage = () => {
               )}
             </div>
           )}
-
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as 'newest' | 'oldest' | 'title')}
-            className={styles.filterSelect}
-          >
-            <option value="newest">Oldest First</option>
-            <option value="oldest">Newest First</option>
-            <option value="title">Title A-Z</option>
-          </select>
         </div>
       </div>
           <div className={styles.artworksGrid}>
