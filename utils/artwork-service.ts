@@ -120,6 +120,57 @@ export async function searchArtworks(
   }
 }
 
+export async function searchManagedArtworks(
+  searchTerm?: string,
+  category?: string
+): Promise<ManagedArtwork[]> {
+  try {
+    if (searchTerm && category && category !== 'all') {
+      const { rows } = await sql`
+        SELECT id, title, date, place, description, image_url, category, views, created_at, updated_at
+        FROM artworks
+        WHERE (
+          LOWER(title) LIKE ${`%${searchTerm.toLowerCase()}%`} OR
+          LOWER(description) LIKE ${`%${searchTerm.toLowerCase()}%`} OR
+          LOWER(place) LIKE ${`%${searchTerm.toLowerCase()}%`}
+        )
+        AND LOWER(category) = ${category.toLowerCase()}
+        ORDER BY date DESC
+      `;
+      return rows as ManagedArtwork[];
+    } else if (searchTerm) {
+      const { rows } = await sql`
+        SELECT id, title, date, place, description, image_url, category, views, created_at, updated_at
+        FROM artworks
+        WHERE 
+          LOWER(title) LIKE ${`%${searchTerm.toLowerCase()}%`} OR
+          LOWER(description) LIKE ${`%${searchTerm.toLowerCase()}%`} OR
+          LOWER(place) LIKE ${`%${searchTerm.toLowerCase()}%`}
+        ORDER BY date DESC
+      `;
+      return rows as ManagedArtwork[];
+    } else if (category && category !== 'all') {
+      const { rows } = await sql`
+        SELECT id, title, date, place, description, image_url, category, views, created_at, updated_at
+        FROM artworks
+        WHERE LOWER(category) = ${category.toLowerCase()}
+        ORDER BY date DESC
+      `;
+      return rows as ManagedArtwork[];
+    }
+    const { rows } = await sql`
+      SELECT id, title, date, place, description, image_url, category, views, created_at, updated_at
+      FROM artworks
+      ORDER BY date DESC
+    `;
+    return rows as ManagedArtwork[];
+  } catch (error) {
+    console.error('Error searching managed artworks:', error);
+    return [];
+  }
+}
+
+
 export const deleteArtwork = async (id: number): Promise<void> => {
   const response = await fetch(`/api/artworks/${id}`, {
     method: 'DELETE',

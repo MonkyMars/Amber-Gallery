@@ -7,10 +7,13 @@ import {
   updateArtwork,
   type EditingArtwork,
   type ManagedArtwork,
-  Categories
+  Categories,
+  Category,
+  searchArtworks,
+  searchManagedArtworks
 } from "../../../utils/artwork-service";
 import { getUser, IsLoggedIn, Logout, User } from '../../../utils/user-service';
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
@@ -25,7 +28,10 @@ const ManageArtworks: NextPage = () => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-  
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
+  const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'title'>('newest');
+  const [loading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
     if (!IsLoggedIn()) {
       router.push('/user/login');
@@ -44,8 +50,32 @@ const ManageArtworks: NextPage = () => {
   };
 
   useEffect(() => {
-    getManagedArtworks().then(setArtworks);
-  }, []);
+    const fetchFilteredArtworks = async () => {
+      setIsLoading(true);
+      const categoryNames = selectedCategories.map(cat => cat.name);
+      
+      if (categoryNames?.length === 0) {
+        const data = await searchManagedArtworks(searchTerm, '');
+        setArtworks(data);
+      } else {
+        const data = await searchManagedArtworks(searchTerm, '');
+        const filteredData = data.filter(artwork => {
+          const artworkCategories = artwork?.category?.split(',').map(c => c.trim());
+          return categoryNames?.some(category => 
+            artworkCategories?.includes(category)
+          );
+        });
+        setArtworks(filteredData);
+      }
+      setIsLoading(false);
+    };
+
+    const timeoutId = setTimeout(() => {
+      fetchFilteredArtworks();
+    }, 300);
+
+    return () => clearTimeout(timeoutId);
+  }, [searchTerm, selectedCategories]);
 
   const handleDelete = async (id: number) => {
     if (window.confirm("Are you sure you want to delete this artwork?")) {
@@ -139,6 +169,27 @@ const ManageArtworks: NextPage = () => {
     }
   };
 
+  const filteredAndSortedArtworks = useMemo(() => {
+    return [...artworks].sort((a, b) => {
+      switch (sortBy) {
+        case "newest":
+          return new Date(b.date).getTime() - new Date(a.date).getTime();
+        case "oldest":
+          return new Date(a.date).getTime() - new Date(b.date).getTime();
+        case "title":
+          return a.title.localeCompare(b.title);
+        default:
+          return 0;
+      }
+    });
+  }, [artworks, sortBy]);
+
+  // Debounced search handler
+  const debouncedSetSearchTerm = useMemo(
+    () => debounce((value: string) => setSearchTerm(value), 300),
+    []
+  );
+
   return (
     <div className={styles.container}>
       <Head>
@@ -176,11 +227,17 @@ const ManageArtworks: NextPage = () => {
             <span>Export Gallery</span>
           </div>
         </aside>
+        <div>
+        <div className={styles.topBar}>
+        <div className={styles.searchBar}>
+          <input
+            type="text"
+            placeholder="Search artworks..."
+            onChange={(e) => debouncedSetSearchTerm(e.target.value)}
+            className={styles.searchInput}
+          />
+        </div>
 
-        <main className={styles.main}>
-          <h1 className={styles.title}>Manage Artworks <strong>({artworks?.length})</strong></h1>
-
-{/*
         <div className={styles.filters}>
           <div className={styles.categorySelector}>
             <select
@@ -245,10 +302,6 @@ const ManageArtworks: NextPage = () => {
           </select>
         </div>
       </div>
-
-
-*/}
-
           <div className={styles.artworksGrid}>
             {artworks.map((artwork) => (
               <div key={artwork.id} className={styles.artworkCard}>
@@ -301,9 +354,10 @@ const ManageArtworks: NextPage = () => {
               </div>
             ))}
           </div>
-        </main>
+        
       </div>
-
+  
+  </div>
       {editingArtwork && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
@@ -459,3 +513,14 @@ const ManageArtworks: NextPage = () => {
 };
 
 export default ManageArtworks;
+
+function debounce<T extends (...args: any[]) => any>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void {
+  let timeout: NodeJS.Timeout;
+  return (...args: Parameters<T>) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
