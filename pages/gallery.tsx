@@ -207,6 +207,7 @@ const Gallery: NextPage = () => {
                     style={{ objectFit: 'cover' }}
                     className={styles.artworkImage}
                     priority={true}
+                                                   unoptimized
                   />}
                 </div>
                 <div className={styles.artworkInfo}>
@@ -255,6 +256,7 @@ const Gallery: NextPage = () => {
                     fill
                     style={{ objectFit: 'contain' }}
                     priority={true}
+                    unoptimized
                   />
                 )}
               </div>
