@@ -303,6 +303,7 @@ const ManageArtworks: NextPage = () => {
                         style={{ objectFit: "cover" }}
                         className={styles.artworkImage}
                         priority={true}
+                        unoptimized
                       />
                       <span className={styles.viewsCounter}>
                         <span>{artwork.views === 1 ? "1 view" : `${artwork.views} views`}</span>
@@ -381,6 +382,7 @@ const ManageArtworks: NextPage = () => {
                       alt="Preview"
                       width={200}
                       height={200}
+                      unoptimized
                     />
                   </div>
                 ) : (
@@ -391,6 +393,7 @@ const ManageArtworks: NextPage = () => {
                         alt="Current"
                         width={200}
                         height={200}
+                        unoptimized
                       />
                     </div>
                   )
