@@ -58,6 +58,7 @@ const Home: NextPage = () => {
                     style={{ objectFit: 'cover' }}
                     className={styles.artworkImage}
                     priority={true}
+                    unoptimized
                   />}
                 </div>
                 <h2>{artwork.title}</h2>
